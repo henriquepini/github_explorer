@@ -1,10 +1,12 @@
 import React, { useState, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
 import { Title, Form, Repositories } from './styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Repository {
 	full_name: string;
@@ -23,12 +25,22 @@ const Dashboard: React.FC = () => {
 		e: FormEvent<HTMLFormElement>,
 	): Promise<void> {
 		e.preventDefault();
-		const response = await api.get<Repository>(`repos/${newRepo}`);
 
-		const repository = response.data;
+		if (!newRepo) {
+			toast.error('Search as author/repository');
+			return;
+		}
 
-		setRepositories([...repositories, repository]);
-		setNewRepo('');
+		try {
+			const response = await api.get<Repository>(`repos/${newRepo}`);
+
+			const repository = response.data;
+
+			setRepositories([...repositories, repository]);
+			setNewRepo('');
+		} catch (err) {
+			toast.error('Error searching said repository');
+		}
 	}
 	return (
 		<>
@@ -43,6 +55,7 @@ const Dashboard: React.FC = () => {
 				/>
 				<button type="submit">Search</button>
 			</Form>
+			<ToastContainer />
 
 			<Repositories>
 				{repositories.map(repo => (
