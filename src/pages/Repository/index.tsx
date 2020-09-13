@@ -68,6 +68,13 @@ const Repository: React.FC = () => {
 							<strong>{repository.full_name}</strong>
 							<p>{repository.description}</p>
 						</div>
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							href={`https://github.com/${repository.full_name}.git`}
+						>
+							Clone this repo
+						</a>
 					</header>
 					<ul>
 						<li>

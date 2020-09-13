@@ -28,11 +28,30 @@ export const RepositoryInfo = styled.section`
 	header {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 
 		img {
 			width: 120px;
 			height: 120px;
 			border-radius: 50%;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			font-weight: bold;
+			background-color: #04d361;
+			color: #fff;
+			width: 210px;
+			height: 70px;
+			border-radius: 5px;
+			transition: background-color 0.2s;
+
+			&:hover {
+				background-color: #03bd57;
+			}
 		}
 
 		div {
